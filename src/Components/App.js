@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import Home from './Home'
-import Menu from './Menu'
+// import Main from './Main';
+import Search from './Search';
+import Menu from './Menu';
 
 function App () {
   const [stage, setStage] = useState({ currStage: 'Home' })
 
   return (
-    <div className="border-4 border-red-700 p-2 rounded">
-      <Menu />
+    <div>
+      <Search/>
+      <Menu/>
     </div>
   )
 }

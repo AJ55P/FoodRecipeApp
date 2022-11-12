@@ -1,21 +1,34 @@
 import React from 'react';
+// import Pizza from '../images/pizza-svgrepo-com.svg';
+// import Pizza from "jsx:../images/pizza-svgrepo-com.svg";
+import { CiPizza } from 'react-icons/ci';
 
-function Menu(props){
+function Menu(){
     return (
-        <header className="flex flex-col flex-wrap gap-5">
-        <a>LogoHome</a>
-            <input className="bg-slate-700 rounded text-lg text-white font-comfortaa" typeof="text" placeholder="What do you want to eat?"></input>
-            <nav>
-                <ul className="flex flex-row flex-wrap gap-7 justify-between">
-                    <li><a>Mexican</a></li>
-                    <li><a>Italian</a></li>
-                    <li><a>American</a></li>
-                    <li><a>Chinese</a></li>
-                    <li><a>Greek</a></li>
-                </ul>
-            </nav>
-        </header>
+        <nav className="mt-3">
+            <ul className="flex flex-row flex-wrap justify-center gap-2">
+                <li className="bg-gradient-to-r from-orange-200 to-red-200
+                cursor-grab flex flex-col h-16 w-16 scale-90 items-center justify-center rounded-full">
+                    <CiPizza className="text-2xl"/>
+                    <a className="text-sm">American</a>
+                </li>
+                <li className="cursor-grab flex flex-col h-16 w-16 scale-90 items-center justify-center rounded-full 
+                bg-gradient-to-r from-orange-200 to-red-200">
+                    <CiPizza className="text-2xl"/>
+                    <a className="text-sm">Mexican</a>
+                </li>
+                <li className="cursor-grab flex flex-col h-16 w-16 scale-90 items-center justify-center rounded-full 
+                bg-gradient-to-r from-orange-200 to-red-200">
+                    <CiPizza className="text-2xl"/>
+                    <a className="text-sm">Greek</a>
+                </li>
+                <li className="cursor-grab flex flex-col h-16 w-16 scale-90 items-center justify-center rounded-full 
+                bg-gradient-to-r from-orange-200 to-red-200">
+                    <CiPizza className="text-2xl"/>
+                    <a className="text-sm">Italian</a>
+                </li>
+            </ul>
+        </nav>
     );
 }
-
-export default Menu;
+export default Menu; 
