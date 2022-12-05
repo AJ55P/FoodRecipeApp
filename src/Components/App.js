@@ -1,40 +1,43 @@
-import React, { useState, useEffect } from 'react'
-// import Main from './Main';
+import React, { useState, useEffect } from 'react';
 import Search from './Search';
 import Menu from './Menu';
+import Main from './Main';
+import Dish from './Dish';
 
 function App () {
-  const [stage, setStage] = useState({ currStage: 'Home' })
+  // const [currView, setView] = useState('home');
+  const [currRecipe, setRecipe] = useState([]);
+  const [homeRecipes, setHomeRecipes] = useState([]);
+
+  useEffect(() => {
+    async function fetchHomeRecipes(){
+      const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.FOOD_KEY}&diet=vegetarian&instructionsRequired=true&number=6`);
+      const recipeData = await response.json();
+      setHomeRecipes(recipeData.results);
+    }
+    fetchHomeRecipes();
+  }, []);
+  useEffect(() => {
+    async function fetchDish(){
+        const dishResponse = await fetch(`https://api.spoonacular.com/recipes/${currRecipe}/information?apiKey=${process.env.FOOD_KEY}&includeNutrition=true`);
+        const dishData = await dishResponse.json();
+        setRecipe(dishData);
+    }
+    fetchDish();
+  }, [currRecipe]);
 
   return (
-    <div>
+    <>
       <Search/>
       <Menu/>
-    </div>
+      {currRecipe == [] ? 
+        <Main 
+          setRecipe={setRecipe} 
+          homeRecipes={homeRecipes} /> 
+          : 
+        <Dish dish={currRecipe}/>
+      }
+    </>
   )
 }
-export default App
-
-// Going to convert to hook component!
-// class App extends React.Component{
-//     constructor(props){
-//         super(props);
-//         this.state = {state: "home"};
-//     }
-
-//     componentDidMount(){
-
-//     }
-
-//     componentWillUnmount(){
-
-//     }
-
-//     render(){
-//         return (
-//             <Home/>,
-//             <Menu/>
-//         );
-//     }
-// }
-// export default App;
+export default App;

@@ -5,3 +5,5 @@ dist
 .env
 tailwind.config.js
 .postcssrc.json
+RecipeApp_SampleRecipe.txt
+fetchTest.mjs

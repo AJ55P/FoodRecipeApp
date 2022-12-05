@@ -6,4 +6,3 @@ const root = ReactDOM.createRoot(document.querySelector('#root'));
 const appComponent = <App/>;
 
 root.render(appComponent);
-
