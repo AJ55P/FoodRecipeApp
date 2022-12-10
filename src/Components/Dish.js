@@ -1,22 +1,34 @@
 import React from 'react';
 
-function Dish(props){
-    const ingredientsUsed = props.dish.extendedIngredients.map((e, index) => {
-        <li key={e.id}>{e.original}</li>;
-    });
-    <div>
-        <h1>{props.dish.title}</h1>
-        <div>
-            <h2>Ingredients</h2>
-            <ul>{ingredientsUsed}</ul>
-        </div>
-        <img src={props.dish.image}></img>
-        <div>
-            <h2>Directions</h2>
-        </div>
+function Dish({currRecipe}){
+    let ingredientsUsed = [];
+    let directions = [];
 
-    </div>
-
+    if(currRecipe != null){
+        ingredientsUsed = currRecipe.extendedIngredients.map(e => 
+            <li key={e.id}>
+                {e.original}
+            </li>
+        );
+        directions = currRecipe.analyzedInstructions[0].steps.map(e => 
+            <li key={e.number}>
+                {e.step}
+            </li>
+        );
+    }
+    return (
+        <div>
+            {currRecipe && <h1 className="text-2xl text-center">{currRecipe.title}</h1>}
+            <div>
+                <h2>Ingredients</h2>
+                <ul className="list-disc">{ingredientsUsed}</ul>
+            </div>
+            {currRecipe && <img alt={currRecipe.title} src={currRecipe.image}></img>}
+            <div>
+                <h2>Directions</h2>
+                <ul className="list-disc">{directions}</ul>
+            </div>
+        </div>
+    )
 }
-
 export default Dish;

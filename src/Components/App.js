@@ -1,42 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Search from './Search';
 import Menu from './Menu';
 import Main from './Main';
 import Dish from './Dish';
 
 function App () {
-  // const [currView, setView] = useState('home');
-  const [currRecipe, setRecipe] = useState([]);
+  const dishDidMount = useRef(false);
+  const [currView, setView] = useState('home');
+  const [currRecipeId, setRecipeId] = useState(null);
+  const [currRecipe, setRecipe] = useState(null);
   const [homeRecipes, setHomeRecipes] = useState([]);
 
   useEffect(() => {
     async function fetchHomeRecipes(){
-      const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.FOOD_KEY}&diet=vegetarian&instructionsRequired=true&number=6`);
-      const recipeData = await response.json();
-      setHomeRecipes(recipeData.results);
+      setHomeRecipes([]);
+      const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.FOOD_KEY}&diet=primal&instructionsRequired=true&number=6`);
+      if(!ignore){
+        const recipeData = await response.json();
+        setHomeRecipes(recipeData.results);
+      }
     }
+    let ignore = false;
     fetchHomeRecipes();
+    return () => {
+      ignore = true;
+    }
   }, []);
+
   useEffect(() => {
     async function fetchDish(){
-        const dishResponse = await fetch(`https://api.spoonacular.com/recipes/${currRecipe}/information?apiKey=${process.env.FOOD_KEY}&includeNutrition=true`);
+        const dishResponse = await fetch(`https://api.spoonacular.com/recipes/${currRecipeId}/information?apiKey=${process.env.FOOD_KEY}&includeNutrition=true`);
         const dishData = await dishResponse.json();
         setRecipe(dishData);
+        setView('dish');
     }
-    fetchDish();
-  }, [currRecipe]);
+    if(dishDidMount.current){
+      fetchDish();
+    }
+    else{
+      dishDidMount.current = true;
+    }
+  }, [currRecipeId]);
 
   return (
     <>
-      <Search/>
-      <Menu/>
-      {currRecipe == [] ? 
-        <Main 
-          setRecipe={setRecipe} 
-          homeRecipes={homeRecipes} /> 
-          : 
-        <Dish dish={currRecipe}/>
-      }
+      <Search />
+      <Menu />
+      {currView == 'home' ? (
+        <Main homeRecipes={homeRecipes} setRecipeId={setRecipeId} />
+      ) : (
+        <Dish currRecipe={currRecipe} />
+      )} 
     </>
   )
 }
