@@ -10,8 +10,19 @@ function Main({homeRecipes, setRecipeId}){
     });
     return (
         <main className="border-2 border-black">
-            <h2 className="text-center">Primal!</h2>
-            <div className="flex flex-wrap gap-2 justify-center">{recipeItems}</div>
+            <div className="flex flex-wrap gap-2 justify-center">
+                <h2 className="text-center">Primals</h2>
+                {recipeItems}
+            </div>
+            <div>
+                <h2>Vegeterian</h2>
+            </div>
+            <div>
+                <h2>Vegan</h2>
+            </div>
+            <div>
+                <h2>Deserts</h2>
+            </div>
         </main>
     );
 }

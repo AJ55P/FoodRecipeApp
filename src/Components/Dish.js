@@ -10,11 +10,16 @@ function Dish({currRecipe}){
                 {e.original}
             </li>
         );
-        directions = currRecipe.analyzedInstructions[0].steps.map(e => 
-            <li key={e.number}>
-                {e.step}
-            </li>
-        );
+        /* This condition is here because spoonacular gives recipes without instructions, even with the 
+        "instructionsRequired" parameter set to true!
+        */
+        if(currRecipe.analyzedInstructions.length > 0){
+            directions = currRecipe.analyzedInstructions[0].steps.map(e => 
+                <li key={e.number}>
+                    {e.step}
+                </li>
+            );
+        }
     }
     return (
         <div>
