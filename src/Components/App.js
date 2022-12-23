@@ -15,7 +15,8 @@ function App () {
   const [currCuisine, setCuisine] = useState(null);
   const [currCuisineRecipes, setCuisineRecipes] = useState([]);
   const [homeRecipes, setHomeRecipes] = useState([]);
-  // const [searchResultRecipes, setSearchResultRecipes] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   // fetch the home page recipes once ! 
   useEffect(() => {
     async function fetchHomeRecipes(){
@@ -97,7 +98,7 @@ function App () {
   return (
     <>
       <h1 className="cursor-grab" onClick={()=> setView('home')}>Home</h1>
-      <Search />
+      <Search onSearch={setSearchQuery}/>
       <Menu setCuisine={setCuisine}/>
       {getViewComponent()}
     </>
