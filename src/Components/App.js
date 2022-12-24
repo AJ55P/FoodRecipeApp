@@ -4,11 +4,12 @@ import Menu from './Menu';
 import Main from './Main';
 import Dish from './Dish';
 import Cuisine from './Cuisine';
+import Results from './Results';
 
 function App () {
   const dishDidMount = useRef(false);
   const cuisineDidMount = useRef(false);
-  // const resultsDidMount = useRef(false);
+  const resultsDidMount = useRef(false);
   const [currView, setView] = useState('home');
   const [currRecipeId, setRecipeId] = useState(null);
   const [currRecipe, setRecipe] = useState(null);
@@ -66,21 +67,21 @@ function App () {
     }
   }, [currCuisine]);
 
-  // // fetch the search result recipes!
-  // useEffect(() =>{
-  //   async function fetchSearchResultRecipes(){
-  //     const searchResultResponse = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.FOOD_KEY}&cuisine=${currCuisine}&number=50`)
-  //     const searchResultData = await searchResultResponse.json();
-  //     setSearchResultRecipes(searchResultData.results);
-  //     setView('results');
-  //   }
-  //   if(resultsDidMount.current){
-  //     fetchSearchResultRecipes();
-  //   }
-  //   else{
-  //     resultsDidMount.current = true;
-  //   }
-  // }, [searchResultRecipes]);
+  // fetch the search result recipes!
+  useEffect(() =>{
+    async function fetchSearchResultRecipes(){
+      const searchResultsResponse = await fetch(`https://api.spoonacular.com/recipes/complexSearch/?apiKey=${process.env.FOOD_KEY}&query=${searchQuery}&instructionsRequired=true&number=10`);
+      const resultData = await searchResultsResponse.json();
+      setSearchResults(resultData.results);
+      setView('results');
+    }
+    if(resultsDidMount.current){
+      fetchSearchResultRecipes();
+    }
+    else{
+      resultsDidMount.current = true;
+    }
+  }, [searchQuery]);
 
   function getViewComponent(){
     switch(currView) {
@@ -90,6 +91,8 @@ function App () {
         return <Dish currRecipe={currRecipe} />;
       case 'cuisine':
         return <Cuisine currCuisine={currCuisine} currCuisineRecipes={currCuisineRecipes} setRecipeId={setRecipeId} />;
+      case 'results':
+        return <Results query={searchQuery} results={searchResults} setRecipeId={setRecipeId} />
       default:
         return <Main homeRecipes={homeRecipes} setRecipeId={setRecipeId} />;
     }
