@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .active-tab{
+        background-color: #3b82f6;
+        color: white;
+    }
+    .box-shadow-under{
+        box-shadow: 0px 2px 5px 1px slategrey;
+    }
+    .box-shadow-nutrients{
+        box-shadow: 0px 4px 6px 1px slategrey;
+    }
+    .grid-cols-autofit{
+        grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    }
+}
