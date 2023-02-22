@@ -3,8 +3,9 @@ import Search from './Search';
 import Menu from './Menu';
 import Main from './Main';
 import Dish from './Dish';
-import Cuisine from './Cuisine';
 import Results from './Results';
+import { GiTacos } from 'react-icons/gi';
+import { GiShrimp } from 'react-icons/gi';
 
 function App () {
   const dishDidMount = useRef(false);
@@ -36,7 +37,7 @@ function App () {
         }
       }
       catch(error){
-        console.log('Could not recieve the home recipes!');
+        console.log('Could not receive the home recipes!');
       }
     }
 
@@ -102,9 +103,9 @@ function App () {
       case 'dish':
         return <Dish currRecipe={currRecipe} />;
       case 'cuisine':
-        return <Cuisine currCuisine={currCuisine} currCuisineRecipes={currCuisineRecipes} setRecipeId={setRecipeId} />;
+        return <Results query={currCuisine} results={currCuisineRecipes} setRecipeId={setRecipeId} />;
       case 'results':
-        return <Results query={searchQuery} results={searchResults} setRecipeId={setRecipeId} />
+        return <Results query={searchQuery} results={searchResults} setRecipeId={setRecipeId} />;
       default:
         return <Main homeRecipes={homeRecipes} setRecipeId={setRecipeId} />;
     }
@@ -112,10 +113,10 @@ function App () {
 
   return (
     <>
-      <h1 className="cursor-grab" onClick={()=> setView('home')}>Home</h1>
+      <h1 className="cursor-grab text-lg max-w-max" onClick={()=> setView('home')}> <GiTacos className="inline-block scale-125" /> Bon Appetito! <GiShrimp className="inline-block scale-125 translate-x-1"/> </h1>
       <Search onSearch={setSearchQuery}/>
       <Menu setCuisine={setCuisine}/>
-      {getViewComponent()}
+      <main className="max-w-5xl mx-auto">{getViewComponent()}</main>
     </>
   )
 }
