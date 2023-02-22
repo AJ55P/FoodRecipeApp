@@ -3,14 +3,14 @@ function Results({query, results, setRecipeId}){
     let resultData = results.map(function(r){
         return <div className="relative cursor-pointer" onClick={() => setRecipeId(r.id)} key={r.id}>
                     <img className="rounded-md"src={r.image}/>
-                    <p className="absolute top-3/4 text-white text-center">{r.title}</p>
+                    <p className="absolute top-[80%] left-0 right-0 text-white text-center">{r.title}</p>
               </div>;
     });
     return (
-        <main className="border-2 border-black">
-            <h2>Recipes for : {query}</h2>
-            <div className="flex flex-wrap gap-2 justify-center">{resultData}</div>
-        </main>
+        <>
+            <h2 className="text-center mt-10 mb-5">Recipes for : <strong>{query}</strong></h2>
+            <div className="grid grid-cols-autofit justify-center gap-8">{resultData}</div>
+        </>
     );
 }
 export default Results;
