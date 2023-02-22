@@ -13,7 +13,7 @@ function Search({onSearch}){
                     let queryValue = e.target.value;
                     e.target.value = '';
                     onSearch(queryValue);
-                }}} className="w-full rounded border-solid border-2 border-indigo-600 pl-7 text-lg text-black font-comfortaa" typeof="text" placeholder="What's for breakfast/lunch/dinner?"></input>
+                }}} className="w-full rounded-full border-solid border-2 border-black pl-7 text-lg text-black font-comfortaa" typeof="text" placeholder="What's for breakfast/lunch/dinner?"></input>
         </div>
     );
 }
