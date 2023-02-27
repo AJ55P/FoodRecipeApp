@@ -113,7 +113,7 @@ function App () {
 
   return (
     <>
-      <h1 className="cursor-grab text-3xl max-w-max mx-auto mb-10 mt-2" onClick={()=> setView('home')}> <GiTacos className="inline-block scale-125" /> Bon Appetito! <GiShrimp className="inline-block scale-125 translate-x-1"/> </h1>
+      <button className="text-3xl mx-auto max-w-max mb-10 mt-2 block" onClick={()=> setView('home')}><GiTacos className="inline-block scale-125" /> Bon Appetito! <GiShrimp className="inline-block scale-125 translate-x-1"/></button>
       <Search onSearch={setSearchQuery}/>
       <Menu setCuisine={setCuisine}/>
       <main className="max-w-5xl mx-auto">{getViewComponent()}</main>
