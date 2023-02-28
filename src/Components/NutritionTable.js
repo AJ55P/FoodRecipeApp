@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function NutritionTable({nutritionData}){
+function NutritionTable({nutritionData}){
     // Sliced a smaller subset of nutrient entries for displaying
-    nutrition = nutritionData.slice(0, 9);
+    let nutrition = nutritionData.slice(0, 9);
 
-    tableRows = nutrition.map(function(e, i){
+    let tableRows = nutrition.map(function(e, i){
         return <tr className="even:bg-stone-200" key={i}>
                 <th scope="row" className="tracking-widest font-Comfortaa text-center p-2">{e.name}</th>
                 <td className="p-2 text-center">{e.amount}{e.unit}</td>
@@ -27,3 +27,4 @@ export default function NutritionTable({nutritionData}){
         </table>
     );
 }
+export default NutritionTable;
