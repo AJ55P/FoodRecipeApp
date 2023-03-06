@@ -36,7 +36,6 @@ app.post('/dish', async (req, res) =>{
         throw new Error(`HTTP error: ${response_1.status} ${response_1.statusText}`);
       }
       const dishX_data = await response_1.json();
-      console.log(dishX_data);
       res.json(dishX_data);
   }
   catch(error){
