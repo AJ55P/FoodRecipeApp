@@ -1,0 +1,26 @@
+{
+    "/homeRecipes": {
+      "target": "http://localhost:3000/",
+      "pathRewrite": {
+        "^/api": ""
+      }
+    },
+    "/dish": {
+      "target": "http://localhost:3000/",
+      "pathRewrite": {
+        "^/api": ""
+      }
+    },
+    "/cuisine": {
+      "target": "http://localhost:3000/",
+      "pathRewrite": {
+        "^/api": ""
+      }
+    },
+    "/searchrecipe": {
+      "target": "http://localhost:3000/",
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }
