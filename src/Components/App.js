@@ -23,18 +23,21 @@ function App () {
   // fetch the home page recipes once ! 
   useEffect(() => {
     async function fetchHomeRecipes(){
-      setHomeRecipes({primal_recipes: [], breakfast_recipes: []});
+      setHomeRecipes({primal_recipes: []});
       try{
-        const response_1 = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.FOOD_KEY}&diet=primal&instructionsRequired=true&addRecipeInformation=true&sort=popularity&addRecipeNutrition=true&number=6`);
+        const response_1 = await fetch('/homeRecipes');
         if(!ignore){
+          if(!response_1.ok){
+            throw new Error(`HTTP Error: ${response_1.status}, ${response_1.statusText}`);
+          }
           const recipeData_1 = await response_1.json();
           setHomeRecipes({
-            primal_recipes: recipeData_1.results
+            primal_recipes: recipeData_1
           });
         }
       }
       catch(error){
-        console.log('Could not receive the home recipes!');
+        console.log(error);
       }
     }
 
@@ -64,7 +67,7 @@ function App () {
   // fetch the selected cuisine recipes !
   useEffect(() =>{
     async function fetchCuisineRecipes(){
-      const cuisineResponse = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.FOOD_KEY}&cuisine=${currCuisine}&instructionsRequired=true&number=10`)
+      const cuisineResponse = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.FOOD_KEY}&cuisine=${currCuisine}&instructionsRequired=true&number=10`);
       const cuisineRecipeData = await cuisineResponse.json();
       setCuisineRecipes(cuisineRecipeData.results);
       setView('cuisine');
