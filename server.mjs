@@ -9,7 +9,7 @@ const PORT = 3000;
 app.use(express.json());
 
 // The home recipes api !
-app.get('/', async function foo(req, res, next){
+app.get('/homeRecipes', async function foo(req, res, next){
     try{
         const response_1 = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.FOOD_KEY}&diet=primal&instructionsRequired=true&addRecipeInformation=true&sort=popularity&addRecipeNutrition=true&number=6`);
         if(!response_1.ok){
