@@ -51,10 +51,24 @@ function App () {
   // fetch the chosen recipe !
   useEffect(() => {
     async function fetchDish(){
-        const dishResponse = await fetch(`https://api.spoonacular.com/recipes/${currRecipeId}/information?apiKey=${process.env.FOOD_KEY}&instructionsRequired=true&includeNutrition=true`);
+      try{
+        const dishResponse = await fetch('/dish', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({dish_id: currRecipeId})
+        });
+        if(!dishResponse.ok){
+          throw new Error(`HTTP Error: ${dishResponse.status}, ${dishResponse.statusText}`);
+        }
         const dishData = await dishResponse.json();
         setRecipe(dishData);
         setView('dish');
+      }
+      catch(error){
+        console.log(error);
+      }
     }
     if(dishDidMount.current){
       fetchDish();
