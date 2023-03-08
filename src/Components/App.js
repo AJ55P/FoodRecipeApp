@@ -81,10 +81,24 @@ function App () {
   // fetch the selected cuisine recipes !
   useEffect(() =>{
     async function fetchCuisineRecipes(){
-      const cuisineResponse = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.FOOD_KEY}&cuisine=${currCuisine}&instructionsRequired=true&number=10`);
-      const cuisineRecipeData = await cuisineResponse.json();
-      setCuisineRecipes(cuisineRecipeData.results);
-      setView('cuisine');
+      try{
+        const cuisineResponse = await fetch('/cuisine', {
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({cuisine: currCuisine})
+        });
+        if(!cuisineResponse.ok){
+          throw new Error(`HTTP error: ${cuisineResponse.status}, ${cuisineResponse.statusText}`);
+        }
+        const cuisineRecipeData = await cuisineResponse.json();
+        setCuisineRecipes(cuisineRecipeData);
+        setView('cuisine');
+      }
+      catch(error){
+        console.log(error);
+      }
     }
     if(cuisineDidMount.current){
       fetchCuisineRecipes();
