@@ -111,10 +111,24 @@ function App () {
   // fetch the search result recipes!
   useEffect(() =>{
     async function fetchSearchResultRecipes(){
-      const searchResultsResponse = await fetch(`https://api.spoonacular.com/recipes/complexSearch/?apiKey=${process.env.FOOD_KEY}&query=${searchQuery}&instructionsRequired=true&number=10`);
-      const resultData = await searchResultsResponse.json();
-      setSearchResults(resultData.results);
-      setView('results');
+      try{
+        const searchResultsResponse = await fetch('/searchrecipe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({searchQuery: searchQuery})
+        });
+        if(!searchResultsResponse.ok){
+          throw new Error(`HTTP Error: ${searchResultsResponse.status}, ${searchResultsResponse.statusText}`);
+        }
+        const resultData = await searchResultsResponse.json();
+        setSearchResults(resultData);
+        setView('results');
+      }
+      catch(error){
+        console.log(error);
+      }
     }
     if(resultsDidMount.current){
       fetchSearchResultRecipes();
