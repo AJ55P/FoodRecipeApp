@@ -65,14 +65,13 @@ app.post('/cuisine', async (req, res) =>{
 // The recipe search results api! 
 app.post('/searchrecipe', async (req, res) =>{
   // sanitize this!
-  let recipeX = req.body.recipeName.toString();
+  let recipeX = req.body.searchQuery.toString();
   try{
       const response_1 = await fetch(`https://api.spoonacular.com/recipes/complexSearch/?apiKey=${process.env.FOOD_KEY}&query=${recipeX}&instructionsRequired=true&number=10`);
       if(!response_1.ok){
         throw new Error(`HTTP error: ${response_1.status} ${response_1.statusText}`);
       }
       const results_data = await response_1.json();
-      console.log(results_data.results);
       res.json(results_data.results);
   }
   catch(error){
