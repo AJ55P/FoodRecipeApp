@@ -1,12 +1,27 @@
 import express from 'express';
 import fetch from 'node-fetch';
+import path from 'path';
+import url from 'url';
 import * as dotenv from 'dotenv';
 dotenv.config();
 const app = express();
 const PORT = 3000;
 
+const appPath = path.join(url.fileURLToPath(import.meta.url), '../prodBuild/index.html');
 
 app.use(express.json());
+app.use(express.static('prodBuild'));
+
+app.get('/', (req, res, next) => {
+  res.sendFile(`${appPath}`, (error) => {
+    if(error){
+      next(error);
+    }
+    else{
+      console.log('The React App was sent!');
+    }
+  });
+});
 
 // The home recipes api !
 app.get('/homeRecipes', async function foo(req, res, next){
