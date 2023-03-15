@@ -5,7 +5,7 @@ import url from 'url';
 import * as dotenv from 'dotenv';
 dotenv.config();
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const appPath = path.join(url.fileURLToPath(import.meta.url), '../prodBuild/index.html');
 
@@ -96,5 +96,5 @@ app.post('/searchrecipe', async (req, res) =>{
 });
 
 app.listen(PORT, ()=>{
-    console.log(`recipeApp/api server listening on localhost:${PORT}`);
+    console.log(`recipeApp/api server listening on port:${PORT}`);
 });
